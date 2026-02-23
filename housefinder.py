@@ -20,7 +20,7 @@ ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 # Sample Data
 
 houses = [
-    {"id": 1, "title": "2 Bedroom Apartment", "location": "Kampala, Uganda", "price": "$250/month", "price_value": 250, "description": "Spacious apartment with balcony.", "images": []},
+    {"id": 1, "title": "2 Bedroom Apartments yes this is the change just for practice", "location": "Kampala, Uganda", "price": "$250/month", "price_value": 250, "description": "Spacious apartment with balcony.", "images": []},
     {"id": 2, "title": "Single Room", "location": "Entebbe, Uganda", "price": "$80/month", "price_value": 80, "description": "Affordable room, near the airport.", "images": []},
     {"id": 3, "title": "3 Bedroom House", "location": "Jinja, Uganda", "price": "$400/month", "price_value": 400, "description": "Family house near the Nile.", "images": []}
 ]
