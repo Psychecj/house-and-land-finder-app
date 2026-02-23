@@ -1,6 +1,5 @@
-# ----------------------------------------------
-# Housing Finder Web App - Full Version (Improved UI + Image Upload)
-# ----------------------------------------------
+
+# Housing Finder Web App for renting houses
 
 import os
 from flask import Flask, render_template_string, request, redirect, url_for
@@ -8,27 +7,27 @@ from werkzeug.utils import secure_filename
 import threading
 import webbrowser
 
-# -------------------------
+
 # Flask setup
-# -------------------------
+
 app = Flask(__name__)
 UPLOAD_FOLDER = "static/uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 
-# -------------------------
+
 # Sample Data
-# -------------------------
+
 houses = [
     {"id": 1, "title": "2 Bedroom Apartment", "location": "Kampala, Uganda", "price": "$250/month", "price_value": 250, "description": "Spacious apartment with balcony.", "images": []},
     {"id": 2, "title": "Single Room", "location": "Entebbe, Uganda", "price": "$80/month", "price_value": 80, "description": "Affordable room, near the airport.", "images": []},
     {"id": 3, "title": "3 Bedroom House", "location": "Jinja, Uganda", "price": "$400/month", "price_value": 400, "description": "Family house near the Nile.", "images": []}
 ]
 
-# -------------------------
+
 # Helper functions
-# -------------------------
+
 def get_cities():
     return sorted(set(h["location"].split(",")[0] for h in houses))
 
@@ -37,9 +36,9 @@ def allowed_file(filename):
 
 PLACEHOLDER_IMAGE = "https://via.placeholder.com/400x250?text=No+Image"
 
-# -------------------------
+
 # Base HTML layout
-# -------------------------
+
 layout = """
 <!DOCTYPE html>
 <html>
@@ -97,17 +96,17 @@ layout = """
 </html>
 """
 
-# -------------------------
+
 # Home
-# -------------------------
+
 @app.route("/")
 def home():
     content = "<h1>Welcome to House Finder</h1><p>Find affordable and convenient housing in Uganda. Browse houses, apartments, and rooms in different cities.</p>"
     return render_template_string(layout, content=content)
 
-# -------------------------
+
 # Houses list
-# -------------------------
+
 @app.route("/houses")
 def house_list():
     selected_city = request.args.get("city", "")
@@ -178,9 +177,9 @@ def house_list():
 
     return render_template_string(layout, content=search_form + applied_filters + houses_html)
 
-# -------------------------
+
 # House details
-# -------------------------
+
 @app.route("/house/<int:house_id>")
 def house_details(house_id):
     h = next((x for x in houses if x["id"]==house_id), None)
@@ -219,17 +218,17 @@ def house_details(house_id):
     """
     return render_template_string(layout, content=content)
 
-# -------------------------
+
 # Contact page
-# -------------------------
+
 @app.route("/contact")
 def contact():
     content = "<h1>Contact Us</h1><p>Email: support@housefinder.com<br>Phone: +256 700 123456</p>"
     return render_template_string(layout, content=content)
 
-# -------------------------
+
 # Admin page (Add houses + upload images)
-# -------------------------
+
 @app.route("/admin", methods=["GET","POST"])
 def admin():
     message=""
@@ -272,15 +271,15 @@ def admin():
     """
     return render_template_string(layout, content=content)
 
-# -------------------------
 # Auto open browser
-# -------------------------
+
 def open_browser():
     webbrowser.open("http://127.0.0.1:5000")
 
-# -------------------------
+
 # Run app
-# -------------------------
+
 if __name__=="__main__":
     threading.Timer(1.5, open_browser).start()
+
     app.run(debug=True, host="127.0.0.1", port=5000)
